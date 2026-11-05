@@ -1,9 +1,6 @@
 #src/matcher.py
 
 def load_fasta(file_path):
-    """
-    FASTA 파일을 읽어서 헤더(Header)와 시퀀스(Sequence)를 딕셔너리로 파싱하는 함수입니다.
-    """
     sequences = {}
     current_header = None
 
