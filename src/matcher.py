@@ -39,3 +39,36 @@ if __name__ == "__main__":
         print(f"Length: {len(seq)} bp")
         print(f"Sequence: {seq}\n")
 
+# ============================================================================
+# [Day2: Basic Sequence Statistics and GC Content Analysis]
+# ============================================================================
+
+def calculate_gc_content(sequence):
+    """
+    Calculates the GC content (percentage of G and C nucleotides)
+    of a given DNA sequence.
+    """
+    seq_upper = sequence.upper()
+    g_count = seq_upper.count('G')
+    c_count = seq_upper.count('C')
+    total_length = len(seq_upper)
+
+    if total_length == 0:
+        return 0.0
+
+    gc_percentage = ((g_count + c_count) / total_length) * 100
+    return round(gc_percentage, 2)
+
+def get_base_counts(sequence):
+    """
+    Counts the occurrence of each nucleotide (A, T, G, C)
+    in a given DNA sequence.
+    """
+    seq_upper = sequence.upper()
+    return {
+        'A': seq_upper.count('A'),
+        'T': seq_upper.count('T'),
+        'G': seq_upper.count('G'),
+        'C': seq_upper.count('C'),
+        'Other': len(seq_upper) - (seq_upper.count('A') + seq_upper.count('T') + seq_upper.count('G') + seq_upper.count('C'))
+    }
