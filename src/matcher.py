@@ -72,3 +72,8 @@ def get_base_counts(sequence):
         'C': seq_upper.count('C'),
         'Other': len(seq_upper) - (seq_upper.count('A') + seq_upper.count('T') + seq_upper.count('G') + seq_upper.count('C'))
     }
+
+# ==========================================
+# 🧬 [Day 3 Features: Motif & Restriction Site Search]
+# ==========================================
+
