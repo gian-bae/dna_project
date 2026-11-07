@@ -77,3 +77,45 @@ def get_base_counts(sequence):
 # 🧬 [Day 3 Features: Motif & Restriction Site Search]
 # ==========================================
 
+#Dictionary of common restriction enzymes and thier recognition motifs
+Restriction_ENZYMES = {
+    'EcoRI': 'GAATTC',
+    'BamHI': 'GGATCC',
+    'HindIII': 'AAGCTT',
+    'NotI': 'GCGGCCGC',
+}
+
+def search_motif(sequence, motif):
+    """
+    Searches for a specific motif (short DNA pattern) in the sequence
+    using the KMP search algorithm and returns all starting indices.
+    """
+    return kmp_search(sequence, motif)
+
+def find_restriction_sites(sequence, enzyme_name):
+    """
+    Finds cleavage sites for a specific restriction enzyme in the DNA sequence.
+    Returns a dictionary containing the enzyme name, motif, found poditions,
+    and total count.
+    """
+    if enzyme_name not in Restriction_ENZYMES:
+        raise ValueError(f"Enzyme '{enzyme_name}' is not supported.")
+
+    motif = RESTRICTION_ENZYMES[enzyme_name]
+    sites = kmp_search(sequence, motif)
+
+    return {
+        'enzyme': enzyme_name,
+        'motif': motif,
+        'sites': sites,
+        'count': len(sites)
+    }
+
+if __name__ == "__main__":
+    # Test code for Day 3
+    test_seq = "AGCTGAATTCCGATGAATTCGCTAAGCTT"
+    print(f"Test Sequence: {test_seq}")
+
+    # Test EcoRI motif ssearch
+    ecori_result = find_restriction_sites(test_seq, 'EcoRI')
+    print(f"EcoRI Analysis Result: {ecori_result}")
