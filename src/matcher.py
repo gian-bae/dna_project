@@ -1,16 +1,11 @@
 # ============================================================================
-# [Day1:Genomic(DNA/RNA) Sequence Matching and String Algorithm Visualization]
+# [Day1: Genomic(DNA/RNA) Sequence Matching and String Algorithm]
 # ============================================================================
-
-#src/matcher.py
-
-from ast import pattern
-from email.mime import text
-
 
 def load_fasta(file_path):
     """
-    Reads a FASTA file and parses headers and DNA sequences. Merges multi-line sequences into a single contiguouse string,
+    Reads a FASTA file and parses headers and DNA sequences.
+    Merges multi-line sequences into a single contiguous string.
     """
     sequences = {}
     current_header = None
@@ -20,24 +15,24 @@ def load_fasta(file_path):
             for line in f:
                 line = line.strip()
                 if not line:
-                    continue # Ignore empty lines
+                    continue  # Ignore empty lines
 
                 if line.startswith('>'):
-                    current_header = line[1:] # Remove the '>' symbol and set as key
+                    current_header = line[1:]  # Remove the '>' symbol and set as key
                     sequences[current_header] = ""
                 else:
                     if current_header:
-                        sequences[current_header] += line.upper() # Convert to uppercase
-                        
+                        sequences[current_header] += line.upper()  # Convert to uppercase
+
         return sequences
-                    
+
     except FileNotFoundError:
         print(f"[Error] File not found: {file_path}")
         return {}
 
 def compute_lps(pattern):
     """
-    Computes the LPS (Longest Prefix which is also Suffix)table
+    Computes the LPS (Longest Prefix which is also Suffix) table
     for the KMP string matching algorithm.
     """
     lps = [0] * len(pattern)
@@ -47,7 +42,7 @@ def compute_lps(pattern):
     while i < len(pattern):
         if pattern[i] == pattern[length]:
             length += 1
-            lps [i] = length
+            lps[i] = length
             i += 1
         else:
             if length != 0:
@@ -58,19 +53,19 @@ def compute_lps(pattern):
     return lps
 
 def kmp_search(text, pattern):
-"""
-Performs pattern matching using the Knuth-Morris-Pratt (KMP) algorithm.
-Time Complexity: O(N + M)
-"""
-n = len(text)
-m = len(pattern)
-lps = compute_lps(pattern)
+    """
+    Performs pattern matching using the Knuth-Morris-Pratt (KMP) algorithm.
+    Time Complexity: O(N + M)
+    """
+    n = len(text)
+    m = len(pattern)
+    lps = compute_lps(pattern)
 
-matches = []
-i = 0 # index for text
-j = 0 # index for pattern
+    matches = []
+    i = 0  # index for text
+    j = 0  # index for pattern
 
-while i < n:
+    while i < n:
         if pattern[j] == text[i]:
             i += 1
             j += 1
