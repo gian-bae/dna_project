@@ -4,7 +4,14 @@
 
 #src/matcher.py
 
+from ast import pattern
+from email.mime import text
+
+
 def load_fasta(file_path):
+    """
+    Reads a FASTA file and parses headers and DNA sequences. Merges multi-line sequences into a single contiguouse string,
+    """
     sequences = {}
     current_header = None
 
@@ -27,6 +34,56 @@ def load_fasta(file_path):
     except FileNotFoundError:
         print(f"[Error] File not found: {file_path}")
         return {}
+
+def compute_lps(pattern):
+    """
+    Computes the LPS (Longest Prefix which is also Suffix)table
+    for the KMP string matching algorithm.
+    """
+    lps = [0] * len(pattern)
+    length = 0
+    i = 1
+
+    while i < len(pattern):
+        if pattern[i] == pattern[length]:
+            length += 1
+            lps [i] = length
+            i += 1
+        else:
+            if length != 0:
+                length = lps[length - 1]
+            else:
+                lps[i] = 0
+                i += 1
+    return lps
+
+def kmp_search(text, pattern):
+"""
+Performs pattern matching using the Knuth-Morris-Pratt (KMP) algorithm.
+Time Complexity: O(N + M)
+"""
+n = len(text)
+m = len(pattern)
+lps = compute_lps(pattern)
+
+matches = []
+i = 0 # index for text
+j = 0 # index for pattern
+
+while i < n:
+        if pattern[j] == text[i]:
+            i += 1
+            j += 1
+
+        if j == m:
+            matches.append(i - j)
+            j = lps[j - 1]
+        elif i < n and pattern[j] != text[i]:
+            if j != 0:
+                j = lps[j - 1]
+            else:
+                i += 1
+    return matches
 
 # Test execution code (runs only when this file is executed directly)
 if __name__ == "__main__":
