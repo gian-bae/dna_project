@@ -78,7 +78,7 @@ def get_base_counts(sequence):
 # ==========================================
 
 #Dictionary of common restriction enzymes and thier recognition motifs
-Restriction_ENZYMES = {
+RESTRICTION_ENZYMES = {
     'EcoRI': 'GAATTC',
     'BamHI': 'GGATCC',
     'HindIII': 'AAGCTT',
@@ -98,7 +98,7 @@ def find_restriction_sites(sequence, enzyme_name):
     Returns a dictionary containing the enzyme name, motif, found poditions,
     and total count.
     """
-    if enzyme_name not in Restriction_ENZYMES:
+    if enzyme_name not in RESTRICTION_ENZYMES:
         raise ValueError(f"Enzyme '{enzyme_name}' is not supported.")
 
     motif = RESTRICTION_ENZYMES[enzyme_name]
