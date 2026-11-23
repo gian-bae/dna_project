@@ -171,3 +171,18 @@ if __name__ == "__main__":
     # Test EcoRI motif ssearch
     ecori_result = find_restriction_sites(test_seq, 'EcoRI')
     print(f"EcoRI Analysis Result: {ecori_result}")
+
+def hamming_distance(seq1: str, seq2: str) -> int:
+    """
+    Calculates the Hamming distance between two equal-length sequences.
+    Raises ValuError if the sequence have different lengths.
+    """
+    s1 = seq1.upper()
+    s2 = seq2.upper()
+
+    if len(s1) != len(s2):
+        raise ValueError(
+            f"Sequences must have the same length for Hamming distance "
+            f" (got {len(s1)} and {len(s2)})."
+        )
+    return sum(base1 != base2 for base1, base2 in zip(s1, s2))
