@@ -126,7 +126,7 @@ def get_base_counts(sequence):
     }
 
 # ==========================================
-# 🧬 [Day 3 Features: Motif & Restriction Site Search]
+# 🧬 [Day 3: Motif & Restriction Site Search]
 # ==========================================
 
 #Dictionary of common restriction enzymes and thier recognition motifs
@@ -172,6 +172,10 @@ if __name__ == "__main__":
     ecori_result = find_restriction_sites(test_seq, 'EcoRI')
     print(f"EcoRI Analysis Result: {ecori_result}")
 
+# ==========================================
+# 🧬 [Day 4: Sequence Similarity Measurement (Distance Metric Basics)]
+# ==========================================
+
 def hamming_distance(seq1: str, seq2: str) -> int:
     """
     Calculates the Hamming distance between two equal-length sequences.
@@ -186,3 +190,17 @@ def hamming_distance(seq1: str, seq2: str) -> int:
             f" (got {len(s1)} and {len(s2)})."
         )
     return sum(base1 != base2 for base1, base2 in zip(s1, s2))
+
+
+def hamming_similarity(seq1: str, seq2: str) -> float:
+    # 1. Handle sequences of length 0
+    total_len = len(seq1)
+    if total_len == 0:
+        return ...
+
+    # 2. Call existing hamming_distance to get the number of mismatches (dist)
+    dist = ...
+
+    # 3. Compute and return similarity in the form of 1 - (dist / total_len)
+    similarity = ...
+    return similarity
